@@ -29,6 +29,4 @@ The DTSA framework integrates vision and language through three key components:
 
 ## 📅 Project Status
 
-The full source code, pre-trained models, and configuration files will be released upon the official acceptance of the paper.
-
-Stay tuned for updates!
+The full source code, pre-trained models, and configuration files will be released upon the official acceptance of the paper. Stay tuned for updates!
