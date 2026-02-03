@@ -16,7 +16,7 @@ Semi-supervised Medical Image Segmentation (SMIS) often faces challenges such as
 
 The DTSA framework integrates vision and language through three key components:
 
-![DTSA Framework](./framework.png)
+![DTSA Framework](./assets/DTSA.png)
 
 **Class-aware Cognitive Enhancement (CCE)**: Combines visual features with class-specific text cues to enhance feature representation.
 
