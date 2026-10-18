@@ -87,7 +87,7 @@ def train(args, snapshot_path, logger):
     train_dataset = build_Dataset(args=args, data_dir=args.data_path + args.dataset, split="train_semi_list",
                                   transform=data_transforms["train"])
 
-    val_dataset = build_Dataset(args=args, data_dir=args.data_path + args.dataset, split="test_list",
+    val_dataset = build_Dataset(args=args, data_dir=args.data_path + args.dataset, split="val_list",
                                 transform=data_transforms["valid_test"])
 
     total_slices = len(train_dataset)
