@@ -16,7 +16,7 @@ from trainer import Trainer
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--data_path', type=str, default='/opt/data/private/data_2D',
+parser.add_argument('--data_path', type=str, default='/data',
                     help='Name of Experiment')
 
 parser.add_argument('--labeled_num', type=int, default=10,
