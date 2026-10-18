@@ -133,6 +133,11 @@ if __name__ == '__main__':
         if not os.path.exists(snapshot_path + '/code'):
             os.makedirs(snapshot_path + '/code')
 
+        shutil.copyfile("./train.py", snapshot_path + "/code/train.py")
+        shutil.copyfile("./trainer.py", snapshot_path + "/code/trainer.py")
+        shutil.copyfile("./model/model_prototype_SingleCLS.py", snapshot_path + "/code/model_prototype_SingleCLS.py")
+        shutil.copyfile("./model/transformer.py", snapshot_path + "/code/transformer.py")
+
         logger = logging.getLogger('my_logger')
         logger.setLevel(logging.INFO)
         file_handler = logging.FileHandler(os.path.join(snapshot_path, "log.txt"))
