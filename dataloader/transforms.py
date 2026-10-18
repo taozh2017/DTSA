@@ -1,0 +1,44 @@
+import albumentations as A
+import cv2
+
+def build_transforms(args):
+    if int(A.__version__.split('.')[0]) >= 2:
+        elastic = A.ElasticTransform(alpha=1, sigma=50, p=1.0)
+        hole_size = max(1, args.image_size // 20)
+        dropout = A.CoarseDropout(
+            num_holes_range=(5, 8), hole_height_range=(hole_size, hole_size),
+            hole_width_range=(hole_size, hole_size), fill=0, fill_mask=0, p=0.5,
+        )
+    else:
+        elastic = A.ElasticTransform(alpha=1, sigma=50, alpha_affine=None, p=1.0)
+        dropout = A.CoarseDropout(
+            max_holes=8, max_height=args.image_size // 20, max_width=args.image_size // 20,
+            min_holes=5, fill_value=0, mask_fill_value=0, p=0.5,
+        )
+    data_transforms = {
+        "train": A.Compose([
+            A.OneOf([
+                A.Resize(*[args.image_size, args.image_size], interpolation=cv2.INTER_NEAREST, p=1.0),
+            ], p=1),
+
+            A.HorizontalFlip(p=0.5),
+            A.VerticalFlip(p=0.5),
+            A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.05, rotate_limit=10, p=0.5),
+
+            A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, p=1.0),
+
+            A.OneOf([
+                A.GridDistortion(num_steps=5, distort_limit=0.05, p=1.0),
+                elastic
+            ], p=0.25),
+
+            dropout,
+        ], p=1.0),
+
+        "valid_test": A.Compose([
+            A.Resize(*[args.image_size, args.image_size], interpolation=cv2.INTER_NEAREST),
+        ], p=1.0)
+    }
+    return data_transforms
+
+
